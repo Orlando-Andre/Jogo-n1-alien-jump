@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4k0vmcauco5s"]
+
+[ext_resource type="Texture2D" uid="uid://dns20nui5wkyv" path="res://assets/actors/tile_0001.png" id="1_0ds3q"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_4uoc0"]
+[ext_resource type="Texture2D" uid="uid://tu6k80042c55" path="res://assets/actors/tile_0000.png" id="2_ksm7q"]
+[ext_resource type="AudioStream" uid="uid://cbqwvms8gxhh2" path="res://sounds/retro_jump.wav" id="4_1jsb4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ccs8u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0ds3q")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ksm7q")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plom0"]
+size = Vector2(14, 22)
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(2, 2)
+script = ExtResource("1_4uoc0")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
+sprite_frames = SubResource("SpriteFrames_ccs8u")
+animation = &"idle"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_plom0")
+
+[node name="bounce_fx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1jsb4")
+volume_db = -15.0
